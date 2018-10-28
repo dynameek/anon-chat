@@ -2,6 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
+/*  Import Database Model   */
+const UserModel = require('database/user');
+
 router.get('/free', (req, res) => {
 
 });

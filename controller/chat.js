@@ -2,6 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
+/*  Import Database Model   */
+const ChatModel = require('database/chat');
+
 router.get('/:id/message/all', (req, res) => {
 
 });
