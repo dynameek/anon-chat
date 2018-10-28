@@ -8,4 +8,4 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.index({username: -1, isTyping: 1});
 
-const User = module.exports = mongoose.model('user', UserSchema);
+const User = module.exports = mongoose.model('User', UserSchema);
