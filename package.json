@@ -1,0 +1,29 @@
+{
+  "name": "anon-chat",
+  "version": "1.0.0",
+  "description": "An anonymous chat application",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "~4.16.4",
+    "mongoose": "~5.3.7",
+    "cors": "~2.8.4",
+    "body-parser": "~1.18.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dynameek/anon-chat.git"
+  },
+  "keywords": [
+    "Chat",
+    "Anonymous"
+  ],
+  "author": "Oguntuberu Nathan O.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dynameek/anon-chat/issues"
+  },
+  "homepage": "https://github.com/dynameek/anon-chat#readme"
+}
