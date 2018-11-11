@@ -6,15 +6,15 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 /*  Import Database Config  */
-const dbConfig = require('database/db');
+const dbConfig = require('./database/db');
 
 /*  connect to database*/
 mongoose.connect(dbConfig.database);
 
 /*  Import Route Handlers   */
-const user = require('controller/user');
-const chat = require('controller/chat');
-const message = require('controller/message');
+const user = require('./controller/user');
+const chat = require('./controller/chat');
+const message = require('./controller/message');
 
 /*  */
 const app = express();
@@ -25,7 +25,7 @@ app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({extended: true}));
 
 /*  Set page parser*/
-app.use(express.static(path.join(_dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 /*  Routing */
 app.get('/', (req, res) => {

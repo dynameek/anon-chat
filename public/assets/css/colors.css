@@ -1,0 +1,61 @@
+/*
+ *	@Purpose: Holds all my color options
+ *	@Author: Oguntuberu Nathan O.
+ *	@Date: 05-10-2018
+*/
+
+.bg-none{
+  background: none;
+}
+
+/*	WHITE	*/
+.bg-white{
+	background: #fff;
+}
+.bg-grey{
+	background: #ddd;
+}
+.bg-sky-grey{
+	background: #efefef;
+}
+.white-font{
+	color: #fff;
+}
+
+/*	BLUE	*/
+.bg-marine{
+	background: #0A4F84;
+	color: #fff;
+}
+.marine-font{
+	color: #0A4F84;
+}
+.marine-border{
+	border-color: #0A4F84;
+}
+
+/*	*/
+.bg-green{
+	background: #18914A;
+	color: #fff;
+}
+
+/*	*/
+.bg-wine{
+	background: #7A1A32;
+	color: #fff;
+}
+.wine-font{
+	color: #7A1A32
+}
+.wine-border{
+	border-color: #7A1A32
+}
+
+/*	Gold	*/
+.bg-gold{
+	background: #E09900;
+	color: #fff;
+}
+
+/*	FORE COLORS	*/

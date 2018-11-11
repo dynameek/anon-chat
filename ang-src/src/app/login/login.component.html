@@ -1,0 +1,9 @@
+<div class="full-screen bg-sky-grey center-col-flex">
+  <div class="form-wrapper">
+    <form (ngSubmit)="onSubmit()">
+      <div id="form-message" class="rounded-corners"></div>
+      <input type="text" name="username" [(ngModel)]="user.username" placeholder="Enter a screen name" class="rounded-corners">
+      <input type="submit" value="Enter" class=" bg-wine rounded-corners">
+    </form>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.full-screen{
+  position: fixed;
+}
+header{
+  height: 10vh;
+  padding: 10px 15px;
+}
+
+.chat-section{
+  height: 90vh;
+}
+
+/*  */
+
+/*  */
+.form-wrapper{
+  height: 13.5%;
+  background: rgba(150, 150, 150, 0.3);
+}
+textarea, button{
+  height: 40px;
+}

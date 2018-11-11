@@ -7,3 +7,15 @@ const ChatSchema = mongoose.Schema({
 });
 
 const Chat = module.exports = mongoose.model('Chat', ChatSchema);
+
+module.exports.addChat = (chatDetails, callback) =>{
+    chatDetails.save(callback);
+};
+
+module.exports.getInfo = (chatId, callback) => {
+    Chat.findOne({_id: chatId}, callback);
+}
+
+module.exports.getUserChat = (userId, callback) => {
+    Chat.findOne({to: userId, $or: { from: userId}, isActive: true}, '_id', callback);
+}

@@ -1,0 +1,26 @@
+/*  */
+.fixed-scroll{
+  position: -ms-device-fixed;
+  overflow-y: scroll;
+}
+h1{
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  padding: 15px 15px 0 15px;
+}
+.user-list{
+  padding: 15px;
+}
+.user-list li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eeeeee;
+}
+.user-list li:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.user-list div{
+  padding: 12.5px 5px;
+  font-size: 1.0em;
+  font-weight: bold;
+}
