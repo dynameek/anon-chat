@@ -14,12 +14,13 @@ module.exports.getAllMessages = (id, callback) => {
     Message.find({for: id}, '_id body by for isFetched',callback);
 };
 
-module.exports.getUnreadMessages = (id, callback) => {
-    Message.find({for: id, isFetched: false}, 'body by isFetched', callback);
+module.exports.getUnreadMessages = (values, callback) => {
+    Message.find({for: values.chat, isFetched: false, by: {$ne: values.user}},
+        '_id body by', callback);
 };
 
 module.exports.updateFetchStatus = (id, callback) => {
-    Message.updateMany({for: id, isFetched: false}, {isFetched: true}, callback);
+    Message.updateOne({_id: id}, {isFetched: true}, callback);
 };
 
 module.exports.addMessage = (messageDetails, callback) => {

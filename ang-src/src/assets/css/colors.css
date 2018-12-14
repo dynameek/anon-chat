@@ -5,7 +5,7 @@
 */
 
 .bg-none{
-  background: none;
+	background: none;
 }
 
 /*	WHITE	*/
@@ -17,6 +17,9 @@
 }
 .bg-sky-grey{
 	background: #efefef;
+}
+.bg-translucent-white {
+	background: rgba(255, 255, 255, 0.8);
 }
 .white-font{
 	color: #fff;
@@ -34,7 +37,7 @@
 	border-color: #0A4F84;
 }
 .white-border{
-  border-color: #ffffff;
+	border-color: #ffffff;
 }
 
 /*	*/
@@ -61,4 +64,22 @@
 	color: #fff;
 }
 
+
+/*	*/
+.bg-baby-blue {
+	background: #2f89ff;
+	color: white;
+}
+.baby-blue-font {
+	color: #2f89ff;
+}
+
+/*	*/
+.bg-pink {
+	background: #d45ade;
+	color: white;
+}
+.pink-font {
+	color: #d45ade;
+}
 /*	FORE COLORS	*/

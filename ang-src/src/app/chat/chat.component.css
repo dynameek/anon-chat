@@ -1,22 +1,74 @@
-.full-screen{
-  position: fixed;
-}
-header{
-  height: 10vh;
-  padding: 10px 15px;
-}
 
-.chat-section{
-  height: 90vh;
+/*  */
+header {
+    height: auto;
+    padding: 10px 20px;
+}
+header > .site-name {
+    margin-top: 5px;
+    font-size: 1.7em;
+}
+header button {
+    width: 120px;
+    height: auto;
+    margin-top: 5px;
+    padding-right: 0;
+
+    font-size: 1.05em;
+    font-weight: bold;
+
+    background: none;
+    color: #ffffff;
+    border: none;
 }
 
 /*  */
+main {
+    align-self: center;
+
+    height: 91vh;
+}
+
+main >div {
+    height: 100%;
+}
+.chat-wrap {
+    width: 100%;
+}
+.ad-wrap {
+    display: none;
+}
+
+/*  */
+.chat-section {
+    height: 100%;
+}
 
 /*  */
 .form-wrapper{
-  height: 13.5%;
-  background: rgba(150, 150, 150, 0.3);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    margin: 0;
+
+    background: rgba(150, 150, 150, 0.3);
+}
+form {
+    padding: 10px;
 }
 textarea, button{
-  height: 40px;
+    height: 60px;
+    margin: 0;
+}
+
+@media screen and (min-width: 1200px){
+    header {
+        padding: 10px 15%;
+    }
+
+    .form-wrapper {
+        background: none;
+        padding: 0 15%;
+    }
 }

@@ -1,9 +1,14 @@
-<div class="full-screen bg-sky-grey center-col-flex">
-  <div class="form-wrapper">
-    <form (ngSubmit)="onSubmit()">
-      <div id="form-message" class="rounded-corners"></div>
-      <input type="text" name="username" [(ngModel)]="user.username" placeholder="Enter a screen name" class="rounded-corners">
-      <input type="submit" value="Enter" class=" bg-wine rounded-corners">
-    </form>
-  </div>
-</div>
+<section class="content-sec">
+    <div class="veil center-col-flex">
+        <div class="index-site-name"><i class="pink-font">hallo!</i></div>
+        <div class="full-screen info-holder center-col-flex">
+            <div class="form-wrapper">
+                <form (ngSubmit)="onSubmit()">
+                    <div id="form-message" class="rounded-corners"></div>
+                    <input type="text" name="username" [(ngModel)]="user.username" placeholder="Enter a screen name" class="rounded-corners">
+                    <input type="submit" value="Enter" class="bg-baby-blue rounded-corners no-border">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -6,108 +6,109 @@ import { ChatService} from '../service/chat.service';
 
 import { System } from '../../assets/js/System.js';
 
-import {IChat} from '../models/chat';
-
 @Component({
-  selector: 'app-start-chat',
-  templateUrl: './start-chat.component.html',
-  styleUrls: ['./start-chat.component.css']
+    selector: 'app-start-chat',
+    templateUrl: './start-chat.component.html',
+    styleUrls: ['./start-chat.component.css']
 })
 export class StartChatComponent implements OnInit {
-  private id;
-  private system = new System();
-  private chatDetails;
-  public users: Object[] = [];
-  public chatUsers: IChat;
+    private id;
+    private error;
+    private system = new System();
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private chatService: ChatService
-  ) { }
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private userService: UserService,
+        private chatService: ChatService
+    ) { }
 
-  ngOnInit() {
-    /*  */
-    this.chatUsers = {
-      to: '',
-      from: ''
-    };
-
-    this.chatDetails = {
-      _id: '',
-      to: '',
-      from: ''
-    };
-
-    /*  */
-    this.setId(this.route.snapshot.params.id);
-
-    localStorage.setItem('_id', this.id);
-  }
-
-  public setId(id) {
-    this.chatUsers.from = this.id = id;
-  }
-  public startChat() {
-    this.initiateChat(0);
-    this.system.displayFormMessage(
-      'form-message',
-      'No user(s) available.',
-      3);
-  }
-  public initiateChat(count: number): void{
-    if (count >= 5) {
-      return;
+    ngOnInit() {
+        if (!this.userService.checkIfUserIsSaved()) {
+            this.router.navigate(['/']);
+        }
+        this.setId(this.route.snapshot.params.id);
+        localStorage.setItem('_id', this.id);
     }
-    count += 1;
-    this.userService.updateFreeDom({id: this.id, value: true});
-    setTimeout(() => {
-        //  Check if I'm engaged
-        this.userService.checkEngagement(this.id).subscribe(
-          iamEngaged => {
-            if(iamEngaged) {
-                console.log('I am engaged');
-                this.chatService.getUserChat(this.id).subscribe(
-                  chatInfo => {
-                    this.chatDetails = chatInfo;
-                    count = 5;
-                    this.router.navigate(['chat/' + this.chatDetails._id]);
-                  }
-                );
-            } else {
-                console.log('I am not engaged');
-                //  Update my engagement status to true
-                this.userService.updateEngagement({id: this.id, value: true}).subscribe(
-                  data => {
-                    console.log('Now engaged');
-                    //  get a free user
-                    this.userService.getFreeUser().subscribe(
-                        freeUser => {
-                          if (freeUser) {
-                            console.log('User gotten: ' + freeUser);
-                            //  lock user engagement
-                            this.userService.updateEngagement(freeUser).subscribe(
-                              updated => {
-                                this.chatService.establishChat({to: freeUser, from: this.id}).subscribe(
-                                  chat => {
-                                    console.log('Chat generated: ' + chat);
-                                    this.chatDetails = chat;
-                                    count = 5;
-                                    this.router.navigate(['chat/' + this.chatDetails._id]);
-                                  }
+
+    public setId(id) {
+        this.id = id;
+    }
+    public startChat() {
+        this.initiateChat();
+        this.system.displayFormMessage(
+            'form-message',
+            'No user(s) available. Please, try again',
+            3);
+    }
+    public initiateChat(): void{
+        //
+        this.userService.updateFreedom({id: this.id, value: true}).subscribe(
+            freedomUpdated => {
+                setTimeout(() => {
+                    this.userService.checkEngagement(this.id).subscribe(
+                        iAmEngaged => {
+                            if (iAmEngaged) {
+                                this.chatService.getUserChat(this.id).subscribe(
+                                    myChat => {
+                                        const myChatId = JSON.parse(myChat)._id;
+                                        if (myChatId) {
+                                            this.router.navigate(['/chat/' + myChatId]);
+                                        } else {
+                                            this.error = 'user: ' + this.id + ' Engaged and Not In chat';
+                                        }
+                                    },
+                                    err => this.error = err
                                 );
-                              }
-                            );
-                          }
-                        }
+                            } else {
+                                this.userService.updateEngagement({id: this.id, value: true}).subscribe(
+                                    iAmNowEngaged => {
+                                        if (iAmNowEngaged) {
+                                            this.userService.getFreeUser().subscribe(
+                                                freeUser => {
+                                                    if (freeUser) {
+                                                        this.userService.updateEngagement({id: freeUser, value: true}).subscribe(
+                                                            userIsEngaged => {
+                                                                if (userIsEngaged) {
+                                                                    this.chatService.establishChat(
+                                                                        {to: freeUser, from: this.id, isActive: true})
+                                                                        .subscribe(
+                                                                            chat => {
+                                                                                const chatId = JSON.parse(chat)._id;
+                                                                                if (chatId) {
+                                                                                    this.router.navigate(['/chat/' + chatId]);
+                                                                                } else {
+                                                                                    this.error = 'Unable to establish chat: ' + this.id;
+                                                                                    this.userService.updateEngagement(
+                                                                                        {id: freeUser, value: false});
+                                                                                }
+                                                                            },
+                                                                            err => this.error = err
+                                                                        );
+                                                                } else {
+                                                                    this.error = 'Unable to engage user: ' + freeUser;
+                                                                }
+                                                            },
+                                                            err => this.error = err
+                                                        );
+                                                    } else {
+                                                        this.error = 'Unable to get free User ';
+                                                    }
+                                                },
+                                                err => this.error = err
+                                            );
+                                        } else {
+                                            this.error = 'Unable to engage self: ' + this.id;
+                                        }
+                                    },
+                                    err => this.error = err
+                                );
+                            }
+                        },
+                        err => this.error = err
                     );
-                  }
-                );
+                }, 1000);
             }
-          }
         );
-    }, 1000);
-    this.initiateChat(count);
-  }
+    }
 }

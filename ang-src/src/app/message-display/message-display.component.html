@@ -1,2 +1,7 @@
-<div class="messages" id="msg-list">
+<div class="messages">
+    <div class="center-col-flex chat-banner">
+        <span *ngIf="isActive"><i>Chatting with {{otherUser.username}}</i></span>
+        <span *ngIf="!isActive"><i>{{otherUser.username}} has left</i></span>
+    </div>
+    <div id="msg-list"></div>
 </div>

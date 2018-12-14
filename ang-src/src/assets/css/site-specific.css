@@ -1,0 +1,38 @@
+section {
+    height: 100vh;
+}
+.content-sec{
+
+    background: url("../../assets/images/bench.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.info-holder {
+    width: 90%;
+    height: auto;
+
+    align-self: center;
+}
+
+/*  */
+.site-name {
+    width: auto;
+    font-size: 3.0em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+@media screen and (min-width: 760px) {
+    .info-holder {
+        width: 60%;
+        padding-bottom: 0;
+
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .info-holder {
+        width: 450px;
+    }
+}

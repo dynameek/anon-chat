@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/free', (req, res) => {
     UserModel.getFreeUser((err, user)=>{
-        if(err) res.send('hello');
+        if(err) res.send(err);
         else {
             if(user) res.send(user._id);
             else res.send(null);
@@ -48,9 +48,7 @@ router.get('/engaged/:id', (req, res) => {
    let u_id = req.params.id;
    UserModel.getEngagementValue(u_id, (err, data) => {
         if(err) res.send(err);
-        else {
-            res.send(data.isEngaged);
-        }
+        else res.send(data.isEngaged);
    });
 });
 
@@ -66,9 +64,20 @@ router.put('/free', (req, res) => {
        _id: req.body.id,
        wantsToChat: req.body.value
     });
+
     UserModel.updateFreedom(user, (err, data) => {
         if(err) res.send(err);
-        else res.send(data);
+        else res.send(data.nModified.toString());
+    });
+});
+
+
+router.put('/free/:id', (req, res) => {
+    let id = req.params.id;
+
+    UserModel.freeUser(id, (err, data) => {
+        if(err) res.send(err);
+        else res.send(data.nModified.toString());
     });
 });
 

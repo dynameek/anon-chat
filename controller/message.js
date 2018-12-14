@@ -15,30 +15,31 @@ router.get('/:id/all', (req, res) => {
     });
 });
 
-router.get('/:id/unread', (req, res) => {
-    MessageModel.getUnreadMessages(req.params.id, (err, data) => {
+router.get('/unread/:chatId/:userId', (req, res) => {
+    const values = {
+        chat: req.params.chatId,
+        user: req.params.userId
+    };
+
+    MessageModel.getUnreadMessages(values, (err, data) => {
         let messages = {};
         if(err) res.send('Error: '+JSON.stringify(err));
         else {
             data.forEach(x => {
                messages[x._id] = {by: x.by, body: x.body};
             });
-
-            MessageModel.updateFetchStatus(req.params.id, (err, data)=>{
-                if(data.n > 0) messages.updateSuccess = 1;
-                else messages.updateSuccess = 0;
-
-                res.send(messages);
-            });
+            res.send(messages);
         }
     })
 });
-router.delete('', (req, res) => {
-    MessageModel.deleteAll((err, data) => {
-        if (err) res.send(err);
+
+router.put('/unread/:id', (req, res) => {
+    const msgId = req.params.id;
+    MessageModel.updateFetchStatus(msgId, (err, data) => {
+        if(err) res.send(err);
         else res.send(data);
-    })
-})
+    });
+});
 
 router.post('/add', (req, res) =>{
     let message = new MessageModel({
@@ -55,6 +56,13 @@ router.post('/add', (req, res) =>{
 
 router.put('/:id', (req, res) => {
 
+});
+
+router.delete('', (req, res) => {
+    MessageModel.deleteAll((err, data) => {
+        if (err) res.send(err);
+        else res.send(data.nModified);
+    })
 });
 
 router.use('*', (req, res) => {

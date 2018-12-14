@@ -28,7 +28,8 @@ input, textarea, select{
 	
 	font-family: sans-serif;
 }
-input[type='button']{
+input[type='button'], input[type='submit']{
+    margin-bottom: 0;
 	padding: 10px;
 	
 	font-size: 0.95em;

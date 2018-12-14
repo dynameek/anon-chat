@@ -1,14 +1,24 @@
-<div class="full-screen  bg-white fixed" (load)="messageDisplay.chatInfo = chatInfo">
-  <header class="bg-marine">
-    <button class="input-33 no-border bg-white rounded-corners right">Leave</button>
-  </header>
-  <section class="chat-section bg-sky-grey">
-    <app-message-display #messageDisplay></app-message-display>
-    <div class="form-wrapper">
-      <form (ngSubmit)="messageDisplay.sendMessage()">
-        <textarea name="chat-message" class="input-75" placeholder="Type something..." [(ngModel)]="messageDisplay.message"></textarea>
-        <button type="submit" class="input-25 bg-green no-border">Send</button>
-      </form>
+<div class="full-screen fixed" >
+    <div class="full-screen bg-sky-grey">
+        <header class="bg-baby-blue">
+            <div class="site-name white-font">hallo!</div>
+            <button class="right" (click) = "leaveChat()" >Leave Chat</button>
+        </header>
+        <main>
+            <div class="chat-wrap">
+                <section class="chat-section">
+                    <app-message-display #messageDisplay></app-message-display>
+                    <div class="form-wrapper">
+                        <form (ngSubmit)="messageDisplay.sendMessage(chatId)">
+                            <textarea name="chat-message" class="input-75" placeholder="Type something..." [(ngModel)]="messageDisplay.message"></textarea>
+                            <button type="submit" class="input-25 bg-green no-border">Send</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            <div class="ad-wrap bg-translucent-white">
+
+            </div>
+        </main>
     </div>
-  </section>
 </div>

@@ -18,7 +18,10 @@ module.exports.getAllUsers = (callback) => {
     User.find(callback);
 }
 module.exports.getFreeUser = (callback) => {
-    User.findOne({isEngaged: false, wantsToChat: true},'_id', callback);
+    User.findOne({$and: [
+        {isEngaged: false},
+        {wantsToChat: true}
+        ]}, '_id', callback);
 };
 
 module.exports.getUser = (id, callback) => {
@@ -29,8 +32,12 @@ module.exports.addUser = (userDetails, callback) => {
     User.create(userDetails, callback);
 };
 
-module.exports.updateFreedom = (details, callback) => {
-    User.findOneAndUpdate({_id: details._id}, {wantsToChat: details.value}, callback);
+module.exports.freeUser = (id, callback) => {
+    User.updateOne({_id: id}, {wantsToChat: false, isEngaged: false}, callback);
+}
+
+module.exports.updateFreedom = (userDetails, callback) => {
+    User.updateOne({_id: userDetails._id}, {wantsToChat: userDetails.wantsToChat}, callback);
 };
 
 module.exports.removeAll = (callback) => {
@@ -42,11 +49,11 @@ module.exports.removeUser = (id, callback) => {
 };
 
 module.exports.getEngagementValue = (userId, callback) => {
-    User.findOne({_id: userId}, 'isEngaged', callback);
+    User.findOne({_id: userId},'isEngaged', callback);
 };
 
 module.exports.updateEngagement = (values, callback) => {
-    User.updateOne({_id: values.id}, {isEngaged: values.isEngaged}, callback);
+    User.updateOne({_id: values._id}, {isEngaged: values.isEngaged}, callback);
 };
 
 module.exports.freeAll = (callback) => {

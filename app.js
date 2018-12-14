@@ -1,4 +1,6 @@
 /*  */
+const compression = require('compression');
+const helmet = require('helmet');
 const express = require('express');
 const bodyParse = require('body-parser');
 const cors = require('cors');
@@ -20,6 +22,9 @@ const message = require('./controller/message');
 const app = express();
 
 /*  */
+app.use(compression());
+app.use(helmet());
+/*  */
 app.use(cors());
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({extended: true}));
@@ -39,5 +44,5 @@ app.use('/message', message);
 /*  Serving the application */
 const port = 3000;
 app.listen(port, () => {
-    console.log('Listening on port: '+port);
+    console.log('Listening on port: '+ port);
 });
